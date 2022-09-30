@@ -1,0 +1,71 @@
+
+# template input file modified from PLASTIC.
+
+NGENTOT_LC: 250          # 250
+GENVERSION: RKTEST_BLA   # XXX
+GENSOURCE:  RANDOM   
+GENMODEL:   TRANSIENT
+
+HOSTLIB_DZTOL:  0.003 0.05 0.0   # loose libray match to avoid abort
+HOSTLIB_MSKOPT:  258  # verbose, and add POISSON noise
+
+# ---------------------------------------------------
+
+SOLID_ANGLE:  0.0145  # for DDF
+
+RANSEED:        123459
+FORMAT_MASK:    112  ! 2=TEXT  32=FITS
+
+GENFILTERS:   ugrizyVYHJ
+KCOR_FILE:    kcor_LSST_EUCLIDvis.fits
+
+GENRANGE_MJD:      60200 63900  # from FIRST MJD in the baselinev2 simlib to LAST MJD in the baselinev2 simlib
+GENRANGE_PEAKMJD:  60200 63900  # from FIRST MJD in the baselinev2 simlib to LAST MJD in the baselinev2 simlib
+GENSIGMA_SEARCH_PEAKMJD:  1.0
+
+GENRANGE_REDSHIFT:  0.014   2.20    # XXX
+GENSIGMA_REDSHIFT:  0.001          # 
+GENRANGE_TREST:   -50.0  300.0    # XXX
+
+GENSIGMA_VPEC: 300.0  # peculiar velocity spread without correction, km/sec
+VPEC_ERR:      300.0  # --> no correction
+
+UVLAM_EXTRAPFLUX:  500  # extrapolate fluxes down to 500 A.
+
+LENSING_PROBMAP_FILE:  $SNDATA_ROOT/models/lensing/LENSING_PROBMAP_LogNormal+MICECATv1.DAT
+
+# smear flags: 0=off, 1=on
+SMEARFLAG_FLUX:    1  # photo-stat smearing of signal, sky, etc ...
+SMEARFLAG_ZEROPT:  1  # smear zero-point with zptsig
+
+# negative MWEBV-option ==> correct FLUXCAL with map and central filter wave
+OPT_MWEBV: 3         # SFD98 + Schalfly2011
+OPT_MWCOLORLAW: 99   # Fitzpatrick
+
+# 1=> software trigger 3=software & spec trigger
+APPLY_SEARCHEFF_OPT:  1  
+CUTWIN_SNRMAX: 3 griz 2 -100 400 # SNR>5 for at least 3 of griz filters
+
+# define pipeline logic for trigger (e.g., 2 detetions)
+SEARCHEFF_PIPELINE_LOGIC_FILE:  $SNANA_LSST_ROOT/models/searcheff/SEARCHEFF_PIPELINE_LOGIC.DAT
+
+APPLY_CUTWIN_OPT: 1
+CUTWIN_MWEBV:            0  3   # cut on E(B-V)
+
+NEWMJD_DIF: 0.021  # to make trigger, 30 min between detections
+
+# cosmological params for lightcurve generation and redshift distribution
+OMEGA_MATTER:  0.311
+OMEGA_LAMBDA:  0.689
+W0_LAMBDA:    -1.00
+H0:           70.0   
+
+SIMGEN_DUMP:  9
+  CID GENTYPE GENZ
+  PEAKMAG_g PEAKMAG_r PEAKMAG_i PEAKMAG_z
+  PEAKMAG_u SNRMAX_r
+
+#  PEAKMAG_J PEAKMAG_H PEAKMAG_Y PEAKMAG_y
+#  SNRMAX_r SNRMAX_J SNRMAX_H SNRMAX_Y
+
+
